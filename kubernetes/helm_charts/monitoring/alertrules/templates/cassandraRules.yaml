@@ -21,3 +21,11 @@ spec:
       for: 5m
       labels:
         severity: fatal
+     - alert: cassandra_test_iops
+       annotations:
+        message: cassandra_node_down_fatal
+        summary: {{`"There are only {{$value}}`}} < 400
+      expr: cassandra_stats{cluster="Test Cluster",datacenter="datacenter1",instance="11.5.2.16:8080",job="cassandra-exporter",keyspace="portal",name="org:apache:cassandra:metrics:table:portal:sessions:writelatency:count",table="sessions"} < 400
+      for: 5m
+      labels:
+        severity: fatal
